@@ -43,3 +43,5 @@ if st.button("Analyze"):
             st.write(", ".join(missing_skills))
         else:
             st.write("No missing skills found!")
+        
+        
