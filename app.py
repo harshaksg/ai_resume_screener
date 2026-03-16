@@ -39,4 +39,7 @@ if st.button("Analyze"):
         st.write(f"{score}%")
 
         st.subheader("Missing Skills")
-        st.write(missing_skills)
+        if missing_skills:
+            st.write(", ".join(missing_skills))
+        else:
+            st.write("No missing skills found!")

@@ -1,15 +1,13 @@
-import spacy
-
-nlp = spacy.load("en_core_web_sm")
+from skills import SKILLS_DB
 
 def extract_jd_skills(jd_text):
 
-    doc = nlp(jd_text)
+    jd_text = jd_text.lower()
 
-    skills = []
+    found_skills = []
 
-    for token in doc:
-        if token.pos_ == "NOUN" or token.pos_ == "PROPN":
-            skills.append(token.text.lower())
+    for skill in SKILLS_DB:
+        if skill in jd_text:
+            found_skills.append(skill)
 
-    return list(set(skills))
+    return found_skills

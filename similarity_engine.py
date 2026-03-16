@@ -13,7 +13,6 @@ def compute_similarity(resume_text, jd_text):
     return score
 
 def match_score(similarity):
-
     return round(similarity * 100, 2)
 
 def find_missing_skills(resume_skills, jd_skills):

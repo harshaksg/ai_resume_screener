@@ -1,18 +1,14 @@
 from pdf_utils import extract_text_from_pdf
-import spacy
-
-nlp = spacy.load("en_core_web_sm")
+from skills import SKILLS_DB
 
 def extract_resume_skills(resume_file):
 
-    text = extract_text_from_pdf(resume_file)
+    text = extract_text_from_pdf(resume_file).lower()
 
-    doc = nlp(text)
+    found_skills = []
 
-    skills = []
+    for skill in SKILLS_DB:
+        if skill in text:
+            found_skills.append(skill)
 
-    for token in doc:
-        if token.pos_ == "NOUN" or token.pos_ == "PROPN":
-            skills.append(token.text.lower())
-
-    return list(set(skills)), text
+    return found_skills, text
