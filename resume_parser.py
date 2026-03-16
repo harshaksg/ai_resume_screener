@@ -1,12 +1,18 @@
-from pyresparser import ResumeParser
+from pdf_utils import extract_text_from_pdf
+import spacy
 
-def parse_resume(resume_path):
-    data = ResumeParser(resume_path).get_extracted_data()
+nlp = spacy.load("en_core_web_sm")
 
-    skills = data.get("skills", [])
+def extract_resume_skills(resume_file):
 
-    return {
-        "name": data.get("name"),
-        "skills": skills,
-        "experience": data.get("experience")
-    }
+    text = extract_text_from_pdf(resume_file)
+
+    doc = nlp(text)
+
+    skills = []
+
+    for token in doc:
+        if token.pos_ == "NOUN" or token.pos_ == "PROPN":
+            skills.append(token.text.lower())
+
+    return list(set(skills)), text
